@@ -113,6 +113,9 @@ class ClassHead(nn.Module):
         # [2, 197, 768]
         x = x.mean(dim=1) # [2, 768]
         x = self.layer(x) # [2, 1000]
+
+        # cls_token = x[:, 0, :]  # Using CLS Token
+        # x = self.mlp(cls_token)
         return x
 
 class My_ViT(nn.Module):
@@ -142,5 +145,7 @@ class My_ViT(nn.Module):
 
     def forward(self, x):
         return self.vit(x)
-  
-summary(My_ViT(), (2, 3, 224, 224), device='cpu', depth=5)
+
+
+if __name__ == "__main__":
+    summary(My_ViT(), (2, 3, 224, 224), device='cpu', depth=5)
